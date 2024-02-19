@@ -1,6 +1,6 @@
 # I apologize how hard this might be to read
 CC=gcc
-CFLAGS=-g -Wall -Os -lncurses
+CFLAGS=-g -Wall -lncurses
 SRC=src
 OBJ=obj
 SRCS=$(wildcard $(SRC)/*.c)
