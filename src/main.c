@@ -6,6 +6,7 @@
 
 #include"graphics_tools.h"
 #include"conway_life.h"
+#include"wireworld.h"
 
 int main(){
 	screen_init();
@@ -18,7 +19,7 @@ int main(){
 	BUFFER* front_buffer = create_buffer(height, width);
 	BUFFER* back_buffer = create_buffer(height, width);
 
-	conway_life_random(front_buffer);
+	/*conway_life_random(front_buffer);
 
 	while(1){
 		conway_life_tick(front_buffer, back_buffer);
@@ -26,7 +27,17 @@ int main(){
 		wrefresh(win);
 		swap_buffers(&front_buffer, &back_buffer);
 		delay(100);
+	}*/
+
+	wireworld_random(front_buffer);
+	while(1){
+		wireworld_tick(front_buffer, back_buffer);
+		draw_buffer(win, front_buffer, wireworld_symbols); 
+		wrefresh(win);
+		swap_buffers(&front_buffer, &back_buffer);
+		delay(100);
 	}
+
 	while(1);
 	free_buffer(front_buffer);
 	free_buffer(back_buffer);
