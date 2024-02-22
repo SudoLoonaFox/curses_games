@@ -23,4 +23,6 @@ void draw_buffer(WINDOW* win, BUFFER* buffer, chtype* symbols);
 
 void swap_buffers(BUFFER** buffer_1, BUFFER** buffer_2);
 
+void editor(WINDOW* win, BUFFER* buffer, chtype* symbols, int num_symbols);
+
 #endif

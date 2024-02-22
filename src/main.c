@@ -10,7 +10,7 @@
 
 int main(){
 	screen_init();
-	chtype wireworld_symbols[] = {ACS_BLOCK, ACS_BOARD, ACS_DIAMOND, ACS_PLUS};
+	chtype wireworld_symbols[] = {ACS_BOARD, ACS_BLOCK, ACS_DIAMOND, ACS_PLUS };
 
 	int height, width;
 	getmaxyx(stdscr, height, width);
@@ -29,7 +29,8 @@ int main(){
 		delay(100);
 	}*/
 
-	wireworld_random(front_buffer);
+//	wireworld_random(front_buffer);
+	editor(win, front_buffer, wireworld_symbols, 4);
 	while(1){
 		wireworld_tick(front_buffer, back_buffer);
 		draw_buffer(win, front_buffer, wireworld_symbols); 
