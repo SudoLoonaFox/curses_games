@@ -26,6 +26,9 @@ int main(int argc, char *argv[]){
 	getmaxyx(stdscr, height, width); // I hate macros
 	WINDOW* win = newwin(height, width, 0, 0);
 
+	// TODO change symbol set for game or include within game
+	fps_game(win, height, width, wireworld_symbols, 4);
+
 	conways_game_of_life(win, height, width, wireworld_symbols);
 
 	delay(100);

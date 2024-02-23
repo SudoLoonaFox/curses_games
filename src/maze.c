@@ -30,45 +30,60 @@ void generate_maze(WINDOW* win, BUFFER* buffer, chtype* symbols){
 		int options[4] = {};
 		int options_len = 0;
 		if(cell_state(buffer, y+1, x) == 0){
-			if(moore_neighbours(buffer, y+1, x, 1) <= 2){
+			if(cell_state(buffer, y+2, x) == 0){
 				options[options_len++] = 1;
 			}
 		}
 		if(cell_state(buffer, y-1, x) == 0){
-			if(moore_neighbours(buffer, y-1, x, 1) <= 2){
+			if(cell_state(buffer, y-2, x) == 0){
 				options[options_len++] = 2;
 			}
 		}
 		if(cell_state(buffer, y, x-1) == 0){
-			if(moore_neighbours(buffer, y, x-1, 1) <= 2){
+			if(cell_state(buffer, y, x-2) == 0){
 				options[options_len++] = 3;
 			}
 		}
 		if(cell_state(buffer, y, x+1) == 0){
-			if(moore_neighbours(buffer, y, x+1, 1) <= 2){
+			if(cell_state(buffer, y, x+2) == 0){
 				options[options_len++] = 4;
 			}
 		}
+
 		if(options_len > 0){
 			switch(options[rand()%(options_len)]){
 				case 1:
 					y++;
+					buffer->buffer[x + y * buffer->width] = 1;
+					y++;
+					buffer->buffer[x + y * buffer->width] = 1;
+					stack[stack_len++] = x + y * buffer->width;
 					break;
 				case 2:
 					y--;
+					buffer->buffer[x + y * buffer->width] = 1;
+					y--;
+					buffer->buffer[x + y * buffer->width] = 1;
+					stack[stack_len++] = x + y * buffer->width;
 					break;
 				case 3:
 					x--;
+					buffer->buffer[x + y * buffer->width] = 1;
+					x--;
+					buffer->buffer[x + y * buffer->width] = 1;
+					stack[stack_len++] = x + y * buffer->width;
 					break;
 				case 4:
 					x++;
+					buffer->buffer[x + y * buffer->width] = 1;
+					x++;
+					buffer->buffer[x + y * buffer->width] = 1;
+					stack[stack_len++] = x + y * buffer->width;
 					break;
 			}
-			buffer->buffer[x + y * buffer->width] = 1;
-			stack[stack_len++] = x + y * buffer->width;
+			// stack[stack_len++] = x + y * buffer->width;
 			continue;
 		}
-
 		int t = stack[--stack_len];
 		x = t%buffer->width;
 		y = (int)t/buffer->width;
