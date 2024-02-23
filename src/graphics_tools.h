@@ -1,5 +1,6 @@
 #ifndef GRAPHICS_TOOLS_H
 #define GRAPHICS_TOOLS_H
+#include<ncurses.h>
 
 void screen_init();
 

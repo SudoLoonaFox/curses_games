@@ -7,6 +7,8 @@
 #include"graphics_tools.h"
 #include"conway_life.h"
 #include"wireworld.h"
+#include"mandelbrot.h"
+#include"maze.h"
 
 int main(){
 	screen_init();
@@ -18,6 +20,18 @@ int main(){
 
 	BUFFER* front_buffer = create_buffer(height, width);
 	BUFFER* back_buffer = create_buffer(height, width);
+	
+
+	mandelbrot_set(front_buffer, 4);
+	draw_buffer(win, front_buffer, wireworld_symbols);
+	wrefresh(win);
+	while(1);
+
+	generate_maze(front_buffer);
+	draw_buffer(win, front_buffer, wireworld_symbols);
+	wrefresh(win);
+	while(1);
+
 
 	/*conway_life_random(front_buffer);
 
@@ -30,7 +44,11 @@ int main(){
 	}*/
 
 //	wireworld_random(front_buffer);
-	editor(win, front_buffer, wireworld_symbols, 4);
+//	mandelbrot_set(back_buffer, 4);
+//	draw_buffer(win, back_buffer, wireworld_symbols);
+//	wrefresh(win);
+//	getch();
+	// editor(win, front_buffer, wireworld_symbols, 4);
 	while(1){
 		wireworld_tick(front_buffer, back_buffer);
 		draw_buffer(win, front_buffer, wireworld_symbols); 
