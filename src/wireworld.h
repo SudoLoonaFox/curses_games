@@ -24,5 +24,6 @@ void wireworld_random(BUFFER* buffer);
 
 void wireworld_tick(BUFFER* buffer, BUFFER* new_buffer);
 
+void wireworld(WINDOW* win, int height, int width, chtype* symbols, int len);
 
 #endif

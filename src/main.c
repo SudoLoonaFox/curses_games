@@ -10,56 +10,32 @@
 #include"mandelbrot.h"
 #include"maze.h"
 
-int main(){
-	screen_init();
+int main(int argc, char *argv[]){
+	setlocale(LC_ALL, "");
+	initscr();
+ 	srand(time(NULL));
+	cbreak(); // disable character buffering
+	noecho(); // supress auto echo of typed characters
+	keypad(stdscr, true); // capture special keys
+	curs_set(0);
+	nodelay(stdscr, true);
+
 	chtype wireworld_symbols[] = {ACS_BOARD, ACS_BLOCK, ACS_DIAMOND, ACS_PLUS };
 
 	int height, width;
-	getmaxyx(stdscr, height, width);
+	getmaxyx(stdscr, height, width); // I hate macros
 	WINDOW* win = newwin(height, width, 0, 0);
 
-	BUFFER* front_buffer = create_buffer(height, width);
-	BUFFER* back_buffer = create_buffer(height, width);
+	conways_game_of_life(win, height, width, wireworld_symbols);
+
+	delay(100);
+
+	mandelbrot_set(win, height, width, wireworld_symbols, 4);
 	
+	delay(100);
 
-	mandelbrot_set(front_buffer, 4);
-	draw_buffer(win, front_buffer, wireworld_symbols);
-	wrefresh(win);
-	while(1);
+	wireworld(win, height, width, wireworld_symbols, 4);
 
-	generate_maze(front_buffer);
-	draw_buffer(win, front_buffer, wireworld_symbols);
-	wrefresh(win);
-	while(1);
-
-
-	/*conway_life_random(front_buffer);
-
-	while(1){
-		conway_life_tick(front_buffer, back_buffer);
-		draw_buffer(win, front_buffer, wireworld_symbols); 
-		wrefresh(win);
-		swap_buffers(&front_buffer, &back_buffer);
-		delay(100);
-	}*/
-
-//	wireworld_random(front_buffer);
-//	mandelbrot_set(back_buffer, 4);
-//	draw_buffer(win, back_buffer, wireworld_symbols);
-//	wrefresh(win);
-//	getch();
-	// editor(win, front_buffer, wireworld_symbols, 4);
-	while(1){
-		wireworld_tick(front_buffer, back_buffer);
-		draw_buffer(win, front_buffer, wireworld_symbols); 
-		wrefresh(win);
-		swap_buffers(&front_buffer, &back_buffer);
-		delay(100);
-	}
-
-	while(1);
-	free_buffer(front_buffer);
-	free_buffer(back_buffer);
 	// exiting
 	endwin();
 	return 0;

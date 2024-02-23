@@ -33,3 +33,24 @@ void conway_life_tick(BUFFER* buffer, BUFFER* new_buffer){
 	}
 }
 
+void conways_game_of_life(WINDOW* win, int height, int width, chtype* symbols){
+	BUFFER* front_buffer = create_buffer(height, width);
+	BUFFER* back_buffer = create_buffer(height, width);
+	conway_life_random(front_buffer);
+	while(getch() != 'q'){
+		if(getch() == 'r'){
+			conway_life_random(front_buffer);
+		}
+		/*if(getch() == 'p'){
+			while(getch() != 'p'); // TODO fix this to add quit when paused
+		}*/
+		conway_life_tick(front_buffer, back_buffer);
+		draw_buffer(win, front_buffer, symbols);
+		swap_buffers(&front_buffer, &back_buffer);
+		wrefresh(win);
+		delay(100);
+	}
+	free_buffer(front_buffer);
+	free_buffer(back_buffer);
+}
+

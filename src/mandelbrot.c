@@ -2,7 +2,8 @@
 
 #define MAX_ITER 50
 
-void mandelbrot_set(BUFFER* buffer, int len){
+void mandelbrot_set(WINDOW* win, int height, int width, chtype* symbols, int len){
+	BUFFER* buffer = create_buffer(height, width);	
 	int i = 0;
 	for(double y0 = -2; y0 <=2; y0+=((double) 4)/(buffer->height-1)){
 		for(double x0 = -2; x0 <=2; x0+=((double) 4)/(buffer->width-1)){
@@ -21,4 +22,8 @@ void mandelbrot_set(BUFFER* buffer, int len){
 			i++;
 		}
 	}
+	draw_buffer(win, buffer, symbols);
+	wrefresh(win);
+	while(getch()!='q');
+	free_buffer(buffer);
 }

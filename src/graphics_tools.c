@@ -3,16 +3,6 @@
 #include<locale.h>
 #include<time.h>
 
-void screen_init(){
-	setlocale(LC_ALL, "");
-	srand(time(NULL));
-	initscr(); // init screen
-	cbreak(); // disable character buffering
-	noecho(); // supress auto echo of typed characters
-	keypad(stdscr, true); // capture special keys
-	curs_set(0);
-}
-
 void delay(int number_of_seconds)
 {
     // Converting time into milli_seconds
@@ -101,55 +91,3 @@ void swap_buffers(BUFFER** buffer_1, BUFFER** buffer_2){
 	*buffer_2 = temp;
 	return;
 }
-
-// TODO replace cursor with color when color is added
-void editor(WINDOW* win, BUFFER* buffer, chtype* symbols, int num_symbols){
-	chtype cursor = ACS_LANTERN;
-	int c, h, w;
-	int height = buffer->height;
-	int width = buffer->width;
-	h = height/2;
-	w = width/2;
-	do{
-	draw_buffer(win, buffer, symbols);
-	mvwaddch(win, h, w, cursor); // cursor
-	wrefresh(win);
-	c = getch();
-	if(c == KEY_RIGHT){
-		if(w+1 < width){
-			w++;
-		}
-	}
-	if(c == KEY_LEFT){
-		if(w-1 >= 0){
-			w--;
-		}
-	}
-	if(c == KEY_DOWN){
-		if(h+1 < height){
-			h++;
-		}
-	}
-	if(c == KEY_UP){
-		if(h-1 >= 0){
-			h--;
-		}
-	}
-	if(c == ' '){
-		if(buffer->buffer[w+h*width] == 3){
-			buffer->buffer[w+h*width] = 0;
-		}
-		buffer->buffer[w+h*width] = 3;
-	}
-	if(c == '1'){
-		buffer->buffer[w+h*width] = 1;
-	}
-
-	if(c == KEY_BACKSPACE){
-		buffer->buffer[w+h*width] = 0;
-	}
-
-	}
-	while(c != 'c');
-}
-

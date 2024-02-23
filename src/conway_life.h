@@ -11,4 +11,6 @@ void conway_life_random(BUFFER* buffer);
 
 void conway_life_tick(BUFFER* buffer, BUFFER* new_buffer);
 
+void conways_game_of_life(WINDOW* win, int height, int width, chtype* symbols);
+
 #endif

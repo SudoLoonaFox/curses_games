@@ -2,8 +2,6 @@
 #define GRAPHICS_TOOLS_H
 #include<ncurses.h>
 
-void screen_init();
-
 void delay(int number_of_seconds);
 
 typedef struct{
@@ -23,7 +21,5 @@ int moore_neighbours(BUFFER* buffer, int h, int w, int test_val);
 void draw_buffer(WINDOW* win, BUFFER* buffer, chtype* symbols);
 
 void swap_buffers(BUFFER** buffer_1, BUFFER** buffer_2);
-
-void editor(WINDOW* win, BUFFER* buffer, chtype* symbols, int num_symbols);
 
 #endif
